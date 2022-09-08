@@ -11,6 +11,8 @@ extern "C" {
 #include <stdint.h>
 #include "../../src_mz/dsp_mz.h"
 
+//#define USE_SATURATION 1            // GD 2022
+
 #define Q15_MAX (32767)
 #define Q15_MIN (-32768)
 #define Q31_MAX (2147483647)
@@ -43,21 +45,32 @@ q31_t q31_from_float(float num);
 q31_t q31_from_int(int num);
 
 q15_t q15_mul(q15_t multiplicand, q15_t multiplier);
-#define Q15_MUL(multiplicand,multiplier) (((int32_t)multiplicand * (int32_t)multiplier) >> 16)
+#define Q15_MUL(multiplicand,multiplier) (((int32_t)multiplicand * (int32_t)multiplier) >> 15)
 #define Q15_POW2(num) (((int32_t)num * (int32_t)num) >> 15)
 
 q15_t q15_div(q15_t dividend, q15_t divisor);
 q15_t q15_add(q15_t addend, q15_t adder);
 #define Q15_ADD(addend,adder) ((uint32_t)addend + (uint32_t)adder)
+#ifdef USE_SATURATION 
+#define Q15_ADDS(addend,adder) { int32_t result = (uint32_t)addend + (uint32_t)adder; \
+    if(result > Q15_MAX) result = Q15_MAX; \
+    else if(result < Q15_MIN) result = Q15_MIN; \
+    addend = result; }
+#else
+#define Q15_ADDS(addend,adder) { addend+=adder; }
+#endif
 q15_t q15_abs(q15_t num);
 q15_t q15_sqrt(q15_t num);
 q15_t q15_hypot(int16c n);
+int8_t q15_log2(q15_t n);
 q31_t q31_mul(q31_t multiplicand, q31_t multiplier);
+#define Q31_MUL(multiplicand,multiplier) (((int64_t)multiplicand * (int64_t)multiplier) >> 31)
 q31_t q31_div(q31_t dividend, q31_t divisor);
 q31_t q31_add(q31_t addend, q31_t adder);
 q31_t q31_abs(q31_t num);
 q31_t q31_sqrt(q31_t num);
 q31_t q31_hypot(int32c n);
+int8_t q31_log2(q31_t n);
 
 q15_t q15_sin(q16angle_t theta);
 q15_t q15_fast_sin(q16angle_t theta);

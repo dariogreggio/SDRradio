@@ -131,9 +131,9 @@ q15_t q15_from_dbl(double num) {
   q15_t value;
 
   if(num > 0.99997)
-    value = 32767;
+    value = Q15_MAX;
   else if(num < -1.0)
-    value = -32768;
+    value = Q15_MIN;
   else {
     value = (q15_t)(num * 32768.0);
     }
@@ -145,9 +145,9 @@ q15_t q15_from_float(float num) {
   q15_t value;
 
   if(num > 0.99997)
-    value = 32767;
+    value = Q15_MAX;
   else if(num < -1.0)
-    value = -32768;
+    value = Q15_MIN;
   else {
     value = (q15_t)(num * 32768.0);
     }
@@ -159,9 +159,9 @@ q15_t q15_from_int(int num) {
   q15_t value = 0;
 
   if(num > 0)
-    value = 32767;
+    value = Q15_MAX;
   else if(num < 0)
-    value = -32768;
+    value = Q15_MIN;
 
   return value;
   }
@@ -178,10 +178,10 @@ q15_t q15_div(q15_t dividend, q15_t divisor) {
   if((q15_abs(divisor) < q15_abs(dividend)) || (divisor == 0)) {
     /* saturation: if signs are different, then saturate negative */
     if((divisor & 0x8000) ^ (dividend & 0x8000)) {
-	    quotient = -32768;
+	    quotient = Q15_MIN;
       }
     else {
-	    quotient = 32767;
+	    quotient = Q15_MAX;
       }
     }
   else {
@@ -194,25 +194,25 @@ q15_t q15_div(q15_t dividend, q15_t divisor) {
 q15_t q15_add(q15_t addend, q15_t adder) {
   int32_t result = (uint32_t)addend + (uint32_t)adder;
 
-  if(result > 32767)          
-    result = 32767;
-  else if(result < -32768)    
-    result = -32768;
+  if(result > Q15_MAX)          
+    result = Q15_MAX;
+  else if(result < Q15_MIN)    
+    result = Q15_MIN;
 
   return (q15_t)result;
   }
 
 q15_t q15_abs(q15_t num) {
-  q15_t value = num;
 
-  if(value < 0){
-    if(value < -32767)  
-      value = 32767;
+
+  if(num < 0) {
+    if(num < -Q15_MAX)  
+      return Q15_MAX;
     else                
-      value = -value;
+      return -num;
     }
-
-  return value;
+  else
+    return num;
   }
 
 q15_t q15_sqrt(q15_t num) {
@@ -247,6 +247,21 @@ q15_t q15_hypot(int16c n) {
   value=q15_mul(n.re,n.re)+q15_mul(n.im,n.im);  //
   
   return q15_sqrt(value);
+  }
+
+int8_t q15_log2(q15_t n) {
+  int i,j;
+  
+  if(n<=0)
+    return 0;
+/*  j=0x4000;
+  i=15;
+  while(!(n & j))
+    i--;*/
+  i=0;
+  while(n >>= 1) 
+    ++i;
+  return i;
   }
 
 q15_t q15_sin(q16angle_t theta) {
@@ -293,7 +308,7 @@ q15_t q15_sin90(q16angle_t theta){
         tempTheta1 = tempTheta0 + 1;
 
         if(tempTheta1 == SINE_TABLE_ENTRIES) {
-            table_value1 = 32767;   // 90 degree value
+            table_value1 = Q15_MAX;   // 90 degree value
           }
         else {
             table_value1 = sine_table[tempTheta1];
@@ -308,7 +323,7 @@ q15_t q15_sin90(q16angle_t theta){
         value = offset + table_value0;
       } 
     else {
-        value = 32767;
+        value = Q15_MAX;
     }
 
   return value;
@@ -380,10 +395,10 @@ q15_t q15_tan(q16angle_t theta) {
 
   if(q15_abs(sinValue) >= q15_abs(cosValue)) {
     if((sinValue & 0x8000) ^ (cosValue & 0x8000)) {
-      tanValue = -32768;
+      tanValue = Q15_MIN;
       }
     else {
-      tanValue = 32767;
+      tanValue = Q15_MAX;
       }
     }
   else {
@@ -403,10 +418,10 @@ q15_t q15_fast_tan(q16angle_t theta) {
 
     if(q15_abs(sinValue) >= q15_abs(cosValue)){
         if((sinValue & 0x8000) ^ (cosValue & 0x8000)){
-            tanValue = -32768;
+            tanValue = Q15_MIN;
           }
         else {
-            tanValue = 32767;
+            tanValue = Q15_MAX;
         }
       }
     else {
@@ -613,6 +628,22 @@ q31_t q31_hypot(int32c n) {
   value=q31_mul(n.re,n.re)+q31_mul(n.im,n.im);  //
   
   return q31_sqrt(value);
+  }
+
+int8_t q31_log2(q31_t n) {
+  int i,j;
+  
+  if(n<=0)
+    return 0;
+/*  j=0x4000;
+  i=15;
+  while(!(n & j))
+    i--;*/
+  i=0;
+  while(n >>= 1) 
+    ++i;
+  // opp. https://stackoverflow.com/questions/11376288/fast-computing-of-log2-for-64-bit-integers
+  return i;
   }
 
 q31_t q31_sin(q32angle_t theta) {
