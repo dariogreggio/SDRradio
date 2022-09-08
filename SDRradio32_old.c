@@ -135,7 +135,7 @@ BYTE LCD_init(void);         // does whatever is necessary to initialize it
 #if defined(ST7735)
 #define LCD_cls() clearScreen()          // clear screen
 #elif defined(SSD1309)
-#define LCD_cls() {	clearDisplay();	display(); }	// serve??sì
+#define LCD_cls() {	clearDisplay();	display(); }	// serve??sÃ¬
 #elif defined(SSD1963)
 #define LCD_cls() fillScreen(BLACK)          // clear screen
 #endif
@@ -161,7 +161,7 @@ void drawAgo(int x);
    ((X < 0.0) ? (int)(0x80000000*(X) - 0.5) : (int)(0x7fffffff*(X) + 0.5)) 
 #define q31_float_to_int(x) ( (int) ( (float)(x)*(float)0x7FFFFFFF ) )
 #define q15_float_to_int(x) ( (int) ( (float)(x)*(float)0x7FFF ) )
-#define	TABLE_LOCALOSC_SIZE (FFT_BLOCK_LENGTH)    // per comodità di calcolo
+#define	TABLE_LOCALOSC_SIZE (FFT_BLOCK_LENGTH)    // per comoditÃ  di calcolo
 #warning usare sine_table da q15lib !
 q15 oscillator_sinTable[TABLE_LOCALOSC_SIZE],oscillator_cosTable[TABLE_LOCALOSC_SIZE];
 int16c local_oscillator_table[TABLE_LOCALOSC_SIZE];
@@ -282,7 +282,7 @@ pjpeg_image_info_t JPG_Info;
  */
 int main(void) {
   int i;
-  uint16_t outBins[FFT_BLOCK_LENGTH/2+1];		// sono metà + 1, pare... NO CAZZATA del tizio :D
+  uint16_t outBins[FFT_BLOCK_LENGTH/2+1];		// sono metÃ  + 1, pare... NO CAZZATA del tizio :D
 //  static int16c *p_cmpx,loc;
   q15 fil;
   char buffer[64];
@@ -350,7 +350,7 @@ int main(void) {
 //  DDPCONbits.JTAGEN = 0;
 
   SYSKEY = 0x00000000;
-  SYSKEY = 0xAA996655;    //qua non dovrebbe servire essendo 1° giro (v. IOLWAY
+  SYSKEY = 0xAA996655;    //qua non dovrebbe servire essendo 1Â° giro (v. IOLWAY
   SYSKEY = 0x556699AA;
   CFGCONbits.IOLOCK = 0;      // PPS Unlock
   SYSKEY = 0x00000000;
@@ -473,7 +473,7 @@ int main(void) {
   TRISB=0b0000000000000000;
   TRISC=0b0000000000000000;
   TRISD=0b0000000000000000;
-  TRISE=0b0000000011110000;     // RE4=AN18 analog input (verificare velocità... i "primari" son tutti su PORTB :(
+  TRISE=0b0000000011110000;     // RE4=AN18 analog input (verificare velocitÃ ... i "primari" son tutti su PORTB :(
   TRISF=0b0000000000000000;
   TRISG=0b0000000000000000;
 //  TRISH=0x00000000;
@@ -568,7 +568,7 @@ int main(void) {
   sprintf(buffer,"Fs: %uHz",Fs);
 	LCD_Write(buffer);
 	LCD_XY(1,4);
-  sprintf(buffer,"FFT: %u pt",FFT_BLOCK_LENGTH);   // in effetti la metà, in questa versione!
+  sprintf(buffer,"FFT: %u pt",FFT_BLOCK_LENGTH);   // in effetti la metÃ , in questa versione!
 	LCD_Write(buffer);
   
 	LCD_XY(6,6);
@@ -597,7 +597,7 @@ int main(void) {
   sprintf(buffer,"Fs: %uHz",Fs);
 	LCD_Write(buffer);
 	LCD_XY(1,5);
-  sprintf(buffer,"FFT: %u pt",FFT_BLOCK_LENGTH);   // in effetti la metà, in questa versione!
+  sprintf(buffer,"FFT: %u pt",FFT_BLOCK_LENGTH);   // in effetti la metÃ , in questa versione!
 	LCD_Write(buffer);
   
 	LCD_XY(30,7);
@@ -635,8 +635,8 @@ int main(void) {
   int cnt,baseV;
   
   baseV=0x0000;   // 0b 00000000 00000000 00000100 cc000000
-                  // (0b 00000000 00000000 0000nnnn nnnn0000  questo è come arriva l'ADC)
-                  // 0b sddddddd dddddddd  questo è come arriva l'ADC
+                  // (0b 00000000 00000000 0000nnnn nnnn0000  questo Ã¨ come arriva l'ADC)
+                  // 0b sddddddd dddddddd  questo Ã¨ come arriva l'ADC
   cnt=0x3000;
   for(i=0; i<FFT_BLOCK_LENGTH; i+=4) {    // 
 //  75,0,150,0,75,0,0,0,    // 0 (+ complex))
@@ -965,7 +965,7 @@ __delay_ms(2000);
               tuneFrequency=getTunefromFreq(peakF);     // auto-tuning, utile per ora!
               
               }
-            // [in effetti è lento, meglio gestire un array di diciamo 128W x 300H byte e shiftare/plottare..]
+            // [in effetti Ã¨ lento, meglio gestire un array di diciamo 128W x 300H byte e shiftare/plottare..]
             }
           audioValue=peakM;       // tanto per :)
 #endif
@@ -1305,7 +1305,7 @@ void mySYSTEMConfigPerformance(void) {
   else
     PRECONbits.PFMWS=7;
 
-  PRECONbits.PFMSECEN=0;    // non c'è nella versione "2019" ...
+  PRECONbits.PFMSECEN=0;    // non c'Ã¨ nella versione "2019" ...
   PRECONbits.PREFEN=0x1;
 
   SYSKEY = 0x0;
@@ -1401,7 +1401,7 @@ void ADC_Init(void) {
   // https://www.microchip.com/forums/m878246-p2.aspx
   // o anche https://forum.mikroe.com/viewtopic.php?f=164&t=69452
 
-  // PB3DIV=0x800a;    // boh divido per 10 NO! sono già attivi di default e impostati a 1/2 = 100MHz
+  // PB3DIV=0x800a;    // boh divido per 10 NO! sono giÃ  attivi di default e impostati a 1/2 = 100MHz
   // e cmq ci vuole una sequenza di sblocco...
   // Set Peripheral Bus 2 Clock to SYSCLK/DIV_4
   /*SYSKEY = 0x00000000; // Start unlock sequence
@@ -1469,7 +1469,7 @@ void ADC_Init(void) {
 //    ADCCON2bits.ADCDIV = 64; // per SHARED: 2 TQ * (ADCDIV<6:0>) = 6 * TQ = TAD
     
     ADCCON3bits.ADCSEL = 0; //0=periph clock 3; 1=SYSCLK
-    ADCCON3bits.CONCLKDIV = 0; // 100MHz, sotto è poi diviso 2 per il canale, = max 50MHz come da doc
+    ADCCON3bits.CONCLKDIV = 0; // 100MHz, sotto Ã¨ poi diviso 2 per il canale, = max 50MHz come da doc
     
     
 #ifndef SSD1963
@@ -1544,7 +1544,7 @@ void ADC_Init(void) {
 #ifndef TEST_SINE_WAVE
   PR1 = PERIPHERAL_CLOCK_HZ/SAMPLING_RATE;
 #else
-  PR1 = (PERIPHERAL_CLOCK_HZ/SAMPLING_RATE) /*/1.5*/;      // in Test è lento... e i valori son tutti in vacca £$%&
+  PR1 = (PERIPHERAL_CLOCK_HZ/SAMPLING_RATE) /*/1.5*/;      // in Test Ã¨ lento... e i valori son tutti in vacca Â£$%&
   // v. anche DMAPRI, impostandolo sempra andare MA PORCAMADONNA RADDOPPIA l'ADC diobastardo
 #endif
 
@@ -1647,7 +1647,7 @@ void DMA_Init2(void) {    // per SPI -> display
   m_SPICSBit=0;   // un pizzico prima di far partire la cosa!
   
   
-  DMACONbits.ON = 1;  // enable global DMA controller  C'E' già!
+  DMACONbits.ON = 1;  // enable global DMA controller  C'E' giÃ !
   
   IPC33bits.DMA1IP=2;            // set IPL 2, sub-priority 2??
   IPC33bits.DMA1IS=0;
@@ -1667,12 +1667,12 @@ void PWM_Init(void) {
   
 #ifdef SSD1963
   OC3CON = 0x0006;      // TimerX ossia Timer2; PWM mode no fault; Timer 16bit, TimerX
-  OC3R    = 1000;		 // su PIC32 è read-only!
+  OC3R    = 1000;		 // su PIC32 Ã¨ read-only!
   OC3RS   = 500;   // 50%, relativo a PR2 del Timer2
   OC3CONbits.ON = 1;   // on
 #else
   OC1CON = 0x0006;      // TimerX ossia Timer2; PWM mode no fault; Timer 16bit, TimerX
-  OC1R    = 500;		 // su PIC32 è read-only!
+  OC1R    = 500;		 // su PIC32 Ã¨ read-only!
   OC1RS   = 1000;   // 50%, relativo a PR2 del Timer2
   OC1CONbits.ON = 1;   // on
 #endif
@@ -1682,9 +1682,9 @@ void PWM_Init(void) {
 #ifdef SSD1963
 void SPI_Init(void) {
 
-	SPISDITris=1;				// SDI è input
-	SPISDOTris=0;				// SDO è output
-	SPISCKTris=0;				// SCK è output
+	SPISDITris=1;				// SDI Ã¨ input
+	SPISDOTris=0;				// SDO Ã¨ output
+	SPISCKTris=0;				// SCK Ã¨ output
 	SPICSTris=0;
   CNPUDbits.CNPUD2=1;     // serve sempre!
   m_SPICSBit=1;
@@ -1693,7 +1693,7 @@ void SPI_Init(void) {
   SPI1CON2= 0b00000000000000000000000000000000;    // no special length; 
   SPI1STAT= 0b00000000000000000000000000000000;    // 
   SPI1BRG=19 /* (GetPeripheralClock() / freq /2) -1 */;    // 2.55MHz 19/8/22
-  // il datasheet più o meno indica 2.5MHz max, come pure le librerie in giro
+  // il datasheet piÃ¹ o meno indica 2.5MHz max, come pure le librerie in giro
   
   SPI1CONbits.ON=1;
   }
@@ -1964,7 +1964,7 @@ BYTE LCD_init(void) {		// su SPI
 #endif
   
 #if defined(ST7735) || defined(SSD1309)
-  display();    //	LCD_cls(); così mostra il logo!
+  display();    //	LCD_cls(); cosÃ¬ mostra il logo!
 #elif defined(SSD1963)
   LCD_cls();
 #endif
@@ -2008,7 +2008,7 @@ void LCD_Scroll(void) {
 
 	yMax=8;
 
-	chunk=128 // orientamento è 
+	chunk=128 // orientamento Ã¨ 
 	for(y=1; y<yMax; y++) {
 		memcpy(gfx_buffer1+((y-1)*chunk),gfx_buffer1+(y*chunk),chunk);
 		}
@@ -2069,7 +2069,7 @@ void prepareLocalOsc(uint8_t n, double ampl) {
   frequency=Fs;
   CCosOscillator_CCosOscillator(Fs, getLocOscFreqfromTune(n),ampl);
   CSinOscillator_CSinOscillator(Fs, getLocOscFreqfromTune(n),ampl);
-  // qua precalcolo la tabella con tutti i campioni giusti, così non devo fare nextSample "al volo"
+  // qua precalcolo la tabella con tutti i campioni giusti, cosÃ¬ non devo fare nextSample "al volo"
 	oscPhase = 0;
 	for(i=0; i<TABLE_LOCALOSC_SIZE; i++) {
 		j = COscillator_nextSample_idx();
@@ -2139,7 +2139,7 @@ void CCosOscillator_CCosOscillator(DWORD samplesPerSec, int freq, double ampl) {
   int n;
 
   COscillator_COscillator(samplesPerSec, freq, ampl);
-	samplesPerSecond=samplesPerSec; frequency=freq;		// non riesco a chiamare il costruttore base £$%@#
+	samplesPerSecond=samplesPerSec; frequency=freq;		// non riesco a chiamare il costruttore base Â£$%@#
 	oscPhaseIncrement = 2 * PI * frequency / (double)samplesPerSecond;		
 	for(n=0; n<TABLE_LOCALOSC_SIZE; n++) {
 		oscillator_cosTable[n] = Q15(cos(n*2.0*PI/(double)TABLE_LOCALOSC_SIZE) * amplitude);
@@ -2165,7 +2165,7 @@ void Complex_multiply(int32c n1,int32c n2,int32c *ret) {
 		/* if (a,b)(c,d) then formula of multiplication is (ac-bd,ad+bc) */ 
 	ret->im=(n1.re*n2.im)+(n1.im*n2.re); 
   }
-// verificare se è più veloce passare puntatore a ret o restituire... ma visto che il valore va poi in array direi così
+// verificare se Ã¨ piÃ¹ veloce passare puntatore a ret o restituire... ma visto che il valore va poi in array direi cosÃ¬
 void /*fractcomplex32*/ Complex_Real_multiply(q15 n1,int16c n2,int16c *ret) { 
 //  fractcomplex32 ret;
   ret->re=(n1*n2.re);
@@ -2446,7 +2446,7 @@ __delay_ms(1000);*/
         }
 //                y1+=JPG_Info.m_MCUHeight;
 
-      mcu_x++;      // in x ogni blocco è già 16 pixel (con YUV, pare)
+      mcu_x++;      // in x ogni blocco Ã¨ giÃ  16 pixel (con YUV, pare)
       if(mcu_x >= JPG_Info.m_MCUSPerRow) {
         mcu_x=0;
         mcu_y++;
