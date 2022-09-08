@@ -16,7 +16,7 @@
 extern "C" {
 #endif
 
-//#define NO_LCD_DEBUG 1        // perché i pin di PORTB (su SSD1963) sono usati dal Debugger... e si pianta
+//#define NO_LCD_DEBUG 1        // perchÃ© i pin di PORTB (su SSD1963) sono usati dal Debugger... e si pianta
     
 /* check if build is for a real debug tool */
 #if defined(__DEBUG) && !defined(__MPLAB_ICD2_) && !defined(__MPLAB_ICD3_) && \
@@ -31,7 +31,7 @@ extern "C" {
     #define USING_SIMULATOR
 #endif
 
-#define FCY 216000000UL    //Oscillator frequency; ricontrollato con baud rate, pare giusto così! (v. anche PLL)
+#define FCY 216000000UL    //Oscillator frequency; ricontrollato con baud rate, pare giusto cosÃ¬! (v. anche PLL)
     // ******** per ora 212 overclock confermato 216 21/8/21 v.MUL_54
 
 #define CPU_CLOCK_HZ             (FCY)    // CPU Clock Speed in Hz
@@ -89,7 +89,7 @@ void myINTEnableSystemMultiVectoredInt(void);
 // Sampling Control
 #define Fosc		FCY
 #define Fcy			(Fosc/2)
-#define Fs   		3000000UL           // 2560000 questo dà 39 al timer, meno non va :(
+#define Fs   		3000000UL           // 2560000 questo dÃ  39 al timer, meno non va :(
 // overclock a 216, =>108 multiplo esatto di 2700000
 // va a 30000000! 22/8/22 PR1=36, SAMC=3, 8bit, ADCDIV=1
 //#define SAMPPRD    (Fcy/Fs)-1
@@ -168,14 +168,14 @@ void __attribute__((used)) __delay_ms(unsigned int);
 #define SPI_232_OI		PORTGbits.RG6		// (per I2C clock stretch) 
 #define SPI_232_O_TRIS		TRISGbits.TRISG6
 #define SPI_232_I_TRIS		TRISGbits.TRISG8
-//RG7 può essere SDI2 e RG8 SDO2, per SPI (con RG6=SCK2 fisso))
+//RG7 puÃ² essere SDI2 e RG8 SDO2, per SPI (con RG6=SCK2 fisso))
 
 
 #define	SPISDITris 0		// niente qua
 #define	SPISDOTris TRISGbits.TRISG8				// SDO
 #define	SPISCKTris TRISGbits.TRISG6				// SCK
 #define	SPICSTris  TRISGbits.TRISG7				// CS
-#define	LCDDCTris  TRISEbits.TRISE7				// DC che su questo LCD è "A0" per motivi ignoti
+#define	LCDDCTris  TRISEbits.TRISE7				// DC che su questo LCD Ã¨ "A0" per motivi ignoti
 //#define	LCDRSTTris TRISBbits.TRISB7
 	
 #define	m_SPISCKBit LATGbits.LATG6		// pin 
